@@ -1,42 +1,42 @@
-# Plano do teste A/B
+# Plano do teste A/B - OfficeSupply Online
 
-## Hipotese
-O Kit Escritorio Premium nao vende como deveria porque o beneficio de compra nao aparece de forma clara: a descricao e generica e a chamada para acao nao informa valor nem urgencia. A variante espera aumentar a conversao ao tornar os beneficios, a oferta em parcelas, o estoque limitado e a prova social mais visiveis.
+## Hipótese
+O Kit Escritório Premium pode estar vendendo abaixo do esperado porque seus benefícios e sua proposta de valor não ficam claros na página. Destacar os benefícios, as condições de pagamento e uma chamada para ação mais específica pode aumentar a intenção de compra, medida por cliques no botão.
 
-## Local aplicado
-Pagina de detalhes do produto principal, acima e ao redor do botao de compra.
+## Local de aplicação
+Página de detalhes do Kit Escritório Premium.
 
-## Versao A - controle
-Arquivo: `product-page-control.html`
-Mantem a apresentacao original: titulo, preco integral, descricao generica, botao verde "Adicionar ao Carrinho" e caracteristicas.
+## Versões
+- **A - Controle:** [product-page-control.html](product-page-control.html), apresentação original do produto.
+- **B - Variante:** [product-page-variant.html](product-page-variant.html), apresenta benefícios em destaque, parcelamento, selo promocional e chamada para ação com o preço.
 
-## Versao B - variante
-Arquivo: `product-page-variant.html`
-Alteracoes mensuraveis:
-- Selo "Mais vendido para escritorios";
-- Texto "OFERTA LIMITADA";
-- Parcelamento em tres vezes sem juros;
-- Lista explicita de tres beneficios;
-- Estoque limitado com quantidade;
-- Avaliacao de 4,8/5 com 126 compradores;
-- Botao laranja com texto contendo preco.
+Antes de usar a variante em uma loja real, confirmar que alegações promocionais, quantidade em estoque, avaliações e condições de pagamento são verdadeiras e atuais.
 
-## Ferramenta
-Optimizely ou VWO em ambiente de producao. Para o entregavel local, a divisao pode ser feita por um redirecionamento simples com cookie.
+## Ferramentas e configuração
+- **Publicação:** GitHub Pages.
+- **Análise de sessões e cliques:** Microsoft Clarity, instalado nas duas versões.
+- **Atribuição:** a página inicial sorteia A ou B com probabilidade 50/50 e guarda a escolha no `localStorage` do navegador. O mesmo navegador retorna à mesma variante enquanto os dados locais não forem apagados.
+- **Eventos de clique:** `ab_control_add_to_cart_click` e `ab_variant_add_to_cart_click`.
 
-## Trafego e periodo
-- Divisao 50/50 entre A e B.
-- Usuarios devem permanecer na mesma versao por meio de cookie ou user ID.
-- Duracao minima: 2 semanas, para cobrir dias de semana e fim de semana.
-- Duracao maxima: 4 semanas ou ate atingir a amostra necessaria, evitando parar o teste cedo.
+Links publicados:
+- Entrada do teste: https://juh02app-droid.github.io/prova-p2-ux/
+- Controle A: https://juh02app-droid.github.io/prova-p2-ux/product-page-control.html
+- Variante B: https://juh02app-droid.github.io/prova-p2-ux/product-page-variant.html
 
-## Metricas
-- KPI primario: taxa de clique no botao de adicionar ao carrinho por visitante da pagina.
-- Secundarias: taxa de adicao real ao carrinho, taxa de checkout iniciado, taxa de compra, receita por visitante e ticket medio.
-- Guardrail: taxa de rejeicao, taxa de erro e tempo de permanencia.
+## Duração
+Executar por no mínimo 14 dias e no máximo 28 dias, cobrindo dias úteis e fins de semana. Não encerrar antecipadamente apenas por uma diferença temporária. Se a amostra for pequena ao final do período, reportar o resultado como inconclusivo.
 
-## Analise
-Usar Google Analytics 4 para eventos e VWO/Optimizely para atribuicao das variantes. Confirmar relevancia estatistica com p-valor menor que 0,05 e intervalo de confianca de 95%. Validar amostra e volume por teste de conversao antes de encerrar.
+## Métricas
+- **KPI primário:** visitantes da página que clicaram no botão ÷ visitantes únicos de cada variante.
+- **Secundárias disponíveis neste protótipo:** sessões, gravações de sessão e cliques por variante no Clarity.
+- **Limitação:** o botão registra o clique, mas o protótipo não implementa carrinho, checkout ou pagamento. Portanto, compras, receita e ticket médio não podem ser medidos com a implementação atual.
 
-## Recomendacao
-Se a Variante B aumentar o KPI principal sem piorar guardrails, publicar a variante como versao oficial. Se houver empate, manter o controle. Se houver queda, interromper o teste e reavaliar a hipotese.
+## Análise e decisão
+Após o período do teste, comparar visitantes e cliques das duas variantes e calcular as taxas de clique. Para afirmar um vencedor, verificar significância estatística com nível de confiança de 95% (p < 0,05), usando um teste para comparação de duas proporções. Se os dados disponíveis no Clarity não permitirem obter contagens confiáveis de visitantes e eventos por variante, apresentar a análise como descritiva e não declarar significância.
+
+- **B vence com evidência estatística e sem piora relevante nas métricas observadas:** recomendar a variante.
+- **Empate ou amostra insuficiente:** manter o controle e considerar repetir com mais tráfego.
+- **B apresenta resultado pior:** manter o controle e rever a hipótese.
+
+## Estado da entrega
+As páginas estão publicadas e o Clarity e a atribuição A/B estão instalados. A coleta e a análise dos dados ainda precisam ocorrer durante o período definido; não há vencedor até que esses dados sejam observados.
