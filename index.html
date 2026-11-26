@@ -11,11 +11,25 @@
         <section class="product-detail">
             <div class="product-info">
                 <h1 class="product-title">Teste A/B - Kit Escritorio Premium</h1>
-                <p class="product-description">Selecione a versao que deseja visualizar:</p>
+                <p class="product-description">Estamos direcionando voce para uma das versoes do teste.</p>
+                <p>Se o redirecionamento nao acontecer, escolha uma versao:</p>
                 <p><a class="add-to-cart-btn" href="product-page-control.html">Versao A - Controle</a></p>
                 <p><a class="add-to-cart-btn" href="product-page-variant.html">Versao B - Variante</a></p>
             </div>
         </section>
     </main>
+    <script>
+        const assignmentKey = "officesupply-ab-group";
+        let group = localStorage.getItem(assignmentKey);
+
+        if (group !== "A" && group !== "B") {
+            group = Math.random() < 0.5 ? "A" : "B";
+            localStorage.setItem(assignmentKey, group);
+        }
+
+        window.location.replace(
+            group === "A" ? "product-page-control.html" : "product-page-variant.html"
+        );
+    </script>
 </body>
 </html>

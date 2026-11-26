@@ -5,6 +5,10 @@ document.querySelectorAll("[data-ab-group]").forEach((button) => {
             : "ab_control_add_to_cart_click";
         console.info(eventName);
 
+        if (typeof window.clarity === "function") {
+            window.clarity("event", eventName);
+        }
+
         if (typeof window.gtag === "function") {
             window.gtag("event", eventName, {
                 ab_group: button.dataset.abGroup,
